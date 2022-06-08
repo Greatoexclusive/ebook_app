@@ -1,6 +1,7 @@
 import 'package:ebook_app/utils/all_functions.dart';
 import 'package:ebook_app/utils/color.dart';
 import 'package:ebook_app/utils/text.dart';
+import 'package:ebook_app/views/detail/detail_view.dart';
 import 'package:ebook_app/views/home/components/book_card.dart';
 import 'package:ebook_app/views/home/components/homeTab.dart';
 import 'package:ebook_app/views/home/components/mybook.dart';
@@ -17,6 +18,16 @@ class HomeView extends StatefulWidget {
 final AllFuction _allFunction = AllFuction();
 
 class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    // Future.delayed(const Duration(milliseconds: 500), () => init());
+    super.initState();
+  }
+
+  init() async {
+    await _allFunction.getBookList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,7 +86,14 @@ class _HomeViewState extends State<HomeView> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    ...List.generate(8, (index) => const MyBookCard())
+                    ...List.generate(
+                        8,
+                        (index) => GestureDetector(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailView())),
+                            child: const MyBookCard()))
                   ],
                 ),
               ),

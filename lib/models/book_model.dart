@@ -1,4 +1,4 @@
-class FoodModel {
+class BookModel {
   final String name;
   final double cover;
   final String url;
@@ -7,7 +7,7 @@ class FoodModel {
   final String year;
   final List<String> authors;
 
-  FoodModel({
+  BookModel({
     required this.name,
     required this.cover,
     required this.url,
@@ -17,15 +17,15 @@ class FoodModel {
     required this.authors,
   });
 
-  factory FoodModel.fromJson(Map<String, dynamic> json) {
-    return FoodModel(
+  factory BookModel.fromJson(Map<String, dynamic> json) {
+    return BookModel(
       name: json["name"],
       cover: json["cover"],
       url: json["url"],
       authors: List<String>.from(json["authors"]),
-      createdEditions: 'created_editions',
-      rating: 'rating',
-      year: 'year',
+      createdEditions: json['created_editions'].toString(),
+      rating: json['rating'].toString(),
+      year: json['year'].toString(),
     );
   }
   Map<String, dynamic> toJson() => {
