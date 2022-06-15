@@ -16,7 +16,7 @@ TextStyle headingMeduim = GoogleFonts.baloo2(
     fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white);
 
 TextStyle captionMedium = GoogleFonts.baloo2(
-    fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey);
+    fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey);
 
 TextStyle headingRegular = GoogleFonts.baloo2(
     fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white);

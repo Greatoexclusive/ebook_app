@@ -1,40 +1,48 @@
 class BookModel {
+  final String bookId;
   final String name;
-  final double cover;
+  final String cover;
   final String url;
   final String rating;
-  final String createdEditions;
-  final String year;
+  final String pages;
+  final String synopsis;
+  final String publishedDate;
   final List<String> authors;
 
   BookModel({
+    required this.bookId,
     required this.name,
     required this.cover,
     required this.url,
     required this.rating,
-    required this.createdEditions,
-    required this.year,
+    required this.synopsis,
+    required this.pages,
+    required this.publishedDate,
     required this.authors,
   });
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
     return BookModel(
+      bookId: json["book_id"].toString(),
       name: json["name"],
       cover: json["cover"],
       url: json["url"],
       authors: List<String>.from(json["authors"]),
-      createdEditions: json['created_editions'].toString(),
       rating: json['rating'].toString(),
-      year: json['year'].toString(),
+      publishedDate: json['published_date'],
+      synopsis: json['synopsis'],
+      pages: json['pages'].toString(),
     );
   }
   Map<String, dynamic> toJson() => {
+        "book_id": bookId,
         "name": name,
         "cover": cover,
         "url": url,
         "authors": authors,
-        'created_editions': createdEditions,
+        "published_date": publishedDate,
         'rating': rating,
-        'year': year
+        'synopsis': synopsis,
+        'pages': pages
       };
 }
