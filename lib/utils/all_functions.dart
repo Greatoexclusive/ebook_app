@@ -1,4 +1,5 @@
 import 'package:ebook_app/core/services/book_service.dart';
+import 'package:ebook_app/core/services/pref_services.dart';
 import 'package:ebook_app/models/basic_book_model.dart';
 import 'package:ebook_app/models/book_model.dart';
 
@@ -15,7 +16,7 @@ class AllFuction {
   ];
   List<BasicBookModel> genreList = [];
   List<BasicBookModel> popularList = [];
-  List<BasicBookModel> bookmarkList = [];
+  static List<BookModel> bookmarkList = [];
   BookModel? detailedBook;
 
   static final BookService _bookService = BookService();
@@ -36,5 +37,17 @@ class AllFuction {
 
   getDetails(id) async {
     detailedBook = await _bookService.getById(id: id);
+  }
+
+  static addBookmark(BookModel item) {
+    bookmarkList.add(item);
+    PreferencesServices.storedList.addAll(bookmarkList);
+  }
+
+  static removeBookmark(BookModel book) {
+    bookmarkList.removeWhere((item) {
+      return item.name == book.name;
+    });
+    PreferencesServices.storedList.addAll(bookmarkList);
   }
 }

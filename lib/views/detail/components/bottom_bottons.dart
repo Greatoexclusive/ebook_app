@@ -4,10 +4,20 @@ import 'package:ebook_app/views/webview/webview.dart';
 import 'package:flutter/material.dart';
 
 class BottomBottons extends StatelessWidget {
-  const BottomBottons({Key? key, required this.url}) : super(key: key);
+  BottomBottons(
+      {Key? key,
+      required this.url,
+      required this.onPressed,
+      required this.clicked})
+      : super(key: key);
   final String url;
+  final bool clicked;
+
+  void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
+    const bool onTap = false;
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
       child: Row(
@@ -20,9 +30,11 @@ class BottomBottons extends StatelessWidget {
                 color: kGreyColor.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10)),
             child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.bookmark_outline_rounded,
+              onPressed: onPressed,
+              icon: Icon(
+                clicked
+                    ? Icons.bookmark_added_rounded
+                    : Icons.bookmark_add_outlined,
                 color: Colors.grey,
                 size: 30,
               ),
@@ -31,12 +43,13 @@ class BottomBottons extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => WebbView(
-                          url: url,
-                        )),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => WebbView(
+                        url: url,
+                      )),
+                ),
+              );
             },
             child: Container(
               width: MediaQuery.of(context).size.width - 90,

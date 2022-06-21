@@ -103,17 +103,13 @@ class _HomeViewState extends State<HomeView> {
             ),
             SliverPinnedHeader(
               child: Visibility(
-                visible: _allFunction.bookmarkList.isNotEmpty,
+                visible: AllFuction.bookmarkList.isNotEmpty,
                 child: Container(
                   color: kBgColor,
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: Row(
                     children: [
                       AppText.caption("My Book"),
-                      const Spacer(),
-                      AppText.captionMedium(
-                        "See More",
-                      )
                     ],
                   ),
                 ),
@@ -124,28 +120,28 @@ class _HomeViewState extends State<HomeView> {
             ),
             SliverToBoxAdapter(
                 child: Visibility(
-              visible: _allFunction.bookmarkList.isNotEmpty,
+              visible: AllFuction.bookmarkList.isNotEmpty,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     ...List.generate(
-                        8,
+                        AllFuction.bookmarkList.length,
                         (index) => GestureDetector(
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => DetailView(
-                                          url: "",
-                                          id: 0.toString(),
-                                          name: "",
-                                          image:
-                                              "https://cdn.britannica.com/92/211792-050-E764F875/American-singer-Ariana-Grande-2018.jpg",
-                                        ))),
-                            child: const MyBookCard(
-                              text: "",
-                              image:
-                                  "https://cdn.britannica.com/92/211792-050-E764F875/American-singer-Ariana-Grande-2018.jpg",
+                                        url: AllFuction.bookmarkList[index].url,
+                                        id: AllFuction
+                                            .bookmarkList[index].bookId,
+                                        image: AllFuction
+                                            .bookmarkList[index].cover,
+                                        name: AllFuction
+                                            .bookmarkList[index].name))),
+                            child: MyBookCard(
+                              text: AllFuction.bookmarkList[index].name,
+                              image: AllFuction.bookmarkList[index].cover,
                             )))
                   ],
                 ),

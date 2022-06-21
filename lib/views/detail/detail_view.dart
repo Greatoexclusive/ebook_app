@@ -1,3 +1,4 @@
+import 'package:ebook_app/models/book_model.dart';
 import 'package:ebook_app/utils/all_functions.dart';
 import 'package:ebook_app/utils/color.dart';
 import 'package:ebook_app/views/detail/components/book_info_card.dart';
@@ -25,6 +26,7 @@ class DetailView extends StatefulWidget {
 final AllFuction _allFuction = AllFuction();
 
 class _DetailViewState extends State<DetailView> {
+  bool clicked = false;
   @override
   void initState() {
     _allFuction.detailedBook = null;
@@ -67,7 +69,21 @@ class _DetailViewState extends State<DetailView> {
                     ? ""
                     : _allFuction.detailedBook!.synopsis,
               )),
-          BottomBottons(url: widget.url)
+          BottomBottons(
+            onPressed: () {
+              clicked = !clicked;
+              if (clicked) {
+                AllFuction.addBookmark(_allFuction.detailedBook!);
+              } else {
+                AllFuction.removeBookmark(_allFuction.detailedBook!);
+              }
+              print(clicked);
+              setState(() {});
+              print(AllFuction.bookmarkList.length);
+            },
+            clicked: clicked,
+            url: widget.url,
+          )
         ],
       ),
     );

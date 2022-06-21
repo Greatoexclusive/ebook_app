@@ -1,4 +1,4 @@
-import 'package:ebook_app/views/home/home_view.dart';
+import 'package:ebook_app/views/body.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       // title: 'Flutter Demo',
-      home: HomeView(),
+      home: Home(),
     );
   }
 }
