@@ -5,8 +5,8 @@ import 'package:ebook_app/views/detail/detail_view.dart';
 import 'package:ebook_app/views/home/components/book_card.dart';
 import 'package:ebook_app/views/home/components/bookcard_skeleton.dart';
 import 'package:ebook_app/views/home/components/my_book_skeleton.dart';
+import 'package:ebook_app/views/search/search_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:ebook_app/views/home/components/greeting_card.dart';
 import 'package:ebook_app/views/home/components/home_tab.dart';
 import 'package:ebook_app/views/home/components/my_book.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,32 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: kBgColor,
         body: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(child: GreetingCard()),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText.heading(
+                      "myBookz",
+                      // height: 1.8,
+                    ),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchBar()));
+                        },
+                        icon: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ))
+                  ],
+                ),
+              ),
+            ),
             const SliverToBoxAdapter(
               child: Divider(
                 thickness: 2,
@@ -102,52 +127,6 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             SliverPinnedHeader(
-              child: Visibility(
-                visible: AllFuction.bookmarkList.isNotEmpty,
-                child: Container(
-                  color: kBgColor,
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: Row(
-                    children: [
-                      AppText.caption("My Book"),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 15),
-            ),
-            SliverToBoxAdapter(
-                child: Visibility(
-              visible: AllFuction.bookmarkList.isNotEmpty,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...List.generate(
-                        AllFuction.bookmarkList.length,
-                        (index) => GestureDetector(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailView(
-                                        url: AllFuction.bookmarkList[index].url,
-                                        id: AllFuction
-                                            .bookmarkList[index].bookId,
-                                        image: AllFuction
-                                            .bookmarkList[index].cover,
-                                        name: AllFuction
-                                            .bookmarkList[index].name))),
-                            child: MyBookCard(
-                              text: AllFuction.bookmarkList[index].name,
-                              image: AllFuction.bookmarkList[index].cover,
-                            )))
-                  ],
-                ),
-              ),
-            )),
-            SliverPinnedHeader(
               child: Container(
                 color: kBgColor,
                 child: SingleChildScrollView(
@@ -157,12 +136,12 @@ class _HomeViewState extends State<HomeView> {
                       ...List.generate(
                         _allFunction.tabsList.length,
                         (index) => GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             _allFunction.selectedIndex = index;
 
                             setState(() {});
                             _allFunction.genreList = [];
-                            _allFunction.getGenreList();
+                            await _allFunction.getGenreList();
                             setState(() {});
                           },
                           child: Tabs(

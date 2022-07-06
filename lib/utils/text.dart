@@ -32,7 +32,7 @@ class AppText extends StatelessWidget {
     Key? key,
     this.overflow,
     this.color,
-    this.centered = true,
+    this.centered = false,
     this.multitext = true,
     this.textAlign,
     this.maxlines,

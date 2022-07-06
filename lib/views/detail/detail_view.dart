@@ -7,17 +7,19 @@ import 'package:ebook_app/views/detail/components/description_card.dart';
 import 'package:flutter/material.dart';
 
 class DetailView extends StatefulWidget {
-  const DetailView({
+  DetailView({
     Key? key,
     required this.image,
     required this.name,
     required this.id,
     required this.url,
+    this.isBookmarked,
   }) : super(key: key);
   final String image;
   final String name;
   final String id;
   final String url;
+  bool? isBookmarked;
 
   @override
   State<DetailView> createState() => _DetailViewState();
@@ -26,9 +28,9 @@ class DetailView extends StatefulWidget {
 final AllFuction _allFuction = AllFuction();
 
 class _DetailViewState extends State<DetailView> {
-  bool clicked = false;
   @override
   void initState() {
+    widget.isBookmarked = widget.isBookmarked ?? false;
     _allFuction.detailedBook = null;
     init();
     setState(() {});
@@ -71,17 +73,18 @@ class _DetailViewState extends State<DetailView> {
               )),
           BottomBottons(
             onPressed: () {
-              clicked = !clicked;
-              if (clicked) {
+              widget.isBookmarked = !widget.isBookmarked!;
+              if (widget.isBookmarked!) {
                 AllFuction.addBookmark(_allFuction.detailedBook!);
               } else {
                 AllFuction.removeBookmark(_allFuction.detailedBook!);
               }
-              print(clicked);
+              print(widget.isBookmarked!);
               setState(() {});
               print(AllFuction.bookmarkList.length);
+              setState(() {});
             },
-            clicked: clicked,
+            clicked: widget.isBookmarked!,
             url: widget.url,
           )
         ],

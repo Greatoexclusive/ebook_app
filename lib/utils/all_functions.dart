@@ -17,6 +17,8 @@ class AllFuction {
   List<BasicBookModel> genreList = [];
   List<BasicBookModel> popularList = [];
   static List<BookModel> bookmarkList = [];
+  List<BasicBookModel> searchList = [];
+
   BookModel? detailedBook;
 
   static final BookService _bookService = BookService();
@@ -35,19 +37,23 @@ class AllFuction {
     popularList = await _bookService.getPopular();
   }
 
+  getSearchList(q) async {
+    searchList = await _bookService.getSearchedBooks(q: q);
+  }
+
   getDetails(id) async {
     detailedBook = await _bookService.getById(id: id);
   }
 
   static addBookmark(BookModel item) {
     bookmarkList.add(item);
-    PreferencesServices.storedList.addAll(bookmarkList);
+    // PreferencesServices.storedList.addAll(bookmarkList);
   }
 
   static removeBookmark(BookModel book) {
     bookmarkList.removeWhere((item) {
       return item.name == book.name;
     });
-    PreferencesServices.storedList.addAll(bookmarkList);
+    // PreferencesServices.storedList.addAll(bookmarkList);
   }
 }

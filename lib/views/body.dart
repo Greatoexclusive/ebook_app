@@ -32,7 +32,6 @@ class _HomeViewState extends State<Home> {
           controller: _pageController,
           children: const [
             HomeView(),
-            Scaffold(),
             BookmarkView(),
           ],
         ),
@@ -40,20 +39,12 @@ class _HomeViewState extends State<Home> {
           backgroundColor: Colors.transparent,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                backgroundColor: kPrimaryColor,
+                backgroundColor: kBgColor,
                 icon: Icon(
                   Icons.home,
                   size: 25,
                 ),
                 label: ""),
-            BottomNavigationBarItem(
-              backgroundColor: kBgColor,
-              icon: Icon(
-                Icons.search,
-                size: 25,
-              ),
-              label: "",
-            ),
             BottomNavigationBarItem(
               backgroundColor: kBgColor,
               icon: Icon(

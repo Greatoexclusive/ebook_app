@@ -8,7 +8,7 @@ class BookService {
   final baseURL = "https://hapi-books.p.rapidapi.com";
   final header = {
     "hapi-books.p.rapidapi.com": "X-RapidAPI-Host",
-    "X-RapidAPI-Key": "ce67575aadmsh51c6aa6540a5cc7p19c031jsn2184d6e083b3",
+    "X-RapidAPI-Key": "7fbcb088d9msh3ce824fe7ecb2cbp1731d7jsn77469f7fdd18",
   };
 
   Future<List<BasicBookModel>> getBooks({required String genre}) async {
@@ -72,28 +72,27 @@ class BookService {
       rethrow;
     }
   }
-  // Future<List<BookModel>> getSearchedBooks() async {
-  //   try {
-  //     http.Response response = await http.get(
-  //         Uri.parse(
-  //           "$baseURL/search/the+walking+dead",
-  //         ),
-  //         headers: {
-  //           host: hostKey,
-  //           api: apiKey,
-  //         });
 
-  //     final data = jsonDecode(response.body);
+  Future<List<BasicBookModel>> getSearchedBooks({required String q}) async {
+    try {
+      http.Response response = await http.get(
+        Uri.parse(
+          "$baseURL/search/$q",
+        ),
+        headers: header,
+      );
 
-  //     final List<BookModel> searchedBookList = List<BookModel>.from(
-  //       data.map(
-  //         (e) => BookModel.fromJson(e),
-  //       ),
-  //     );
-  //     return searchedBookList;
-  //   } catch (e) {
-  //     // print("Error is $e");
-  //     rethrow;
-  //   }
-  // }
+      final data = jsonDecode(response.body);
+
+      final List<BasicBookModel> searchedBookList = List<BasicBookModel>.from(
+        data.map(
+          (e) => BasicBookModel.fromJson(e),
+        ),
+      );
+      return searchedBookList;
+    } catch (e) {
+      // print("Error is $e");
+      rethrow;
+    }
+  }
 }
